@@ -36,6 +36,17 @@ namespace MinhaApi.Controllers
             return ret;
         }
 
+        //get todos paginado
+        [HttpGet("pages")]
+        public async Task<ActionResult<IEnumerable<Contato>>> GetPageContatos(
+             [FromQuery]  int skip = 0,
+             [FromQuery] int take = 2
+            )
+        {
+            List<Contato> contatos = await _context.Contato.AsNoTracking().Skip(skip).Take(take).ToListAsync();            
+            return contatos;
+        }
+
         // GET: api/Contatos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contato>> GetContato(int id)
