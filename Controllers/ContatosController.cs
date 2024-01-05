@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MinhaApi.Dto;
 using MinhaApi.Models;
 
 namespace MinhaApi.Controllers
@@ -22,9 +23,17 @@ namespace MinhaApi.Controllers
 
         // GET: api/Contatos
         [HttpGet]       
-        public async Task<ActionResult<IEnumerable<Contato>>> GetContato()
+        public async Task<ActionResult<IEnumerable<ContatoDto>>> GetContato()
         {
-            return await _context.Contato.ToListAsync();
+            var contatosDto = from contato in await _context.Contato.ToListAsync()
+                              select new ContatoDto() 
+                              { 
+                                  Id = contato.Id, 
+                                  Nome = contato.Email, 
+                                  Email = contato.Email,
+                                  Fone = contato.Fone
+                              };
+            return contatosDto.ToList();
         }
 
         //get by Email

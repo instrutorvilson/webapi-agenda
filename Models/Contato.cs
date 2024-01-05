@@ -11,6 +11,8 @@ namespace MinhaApi.Models
         public String  Nome { get; set; }
         public String  Email { get; set; }
         public String Fone { get; set; }
+        public DateTime createdAt { get; set; }
+        public DateTime updateAt { get; set; }
     }
 
 }
